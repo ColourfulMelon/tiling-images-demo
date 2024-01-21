@@ -1,23 +1,127 @@
-import Image from "next/image";
-import { LazyLoadImage } from "react-lazy-load-image-component";
+'use client';
+/* eslint-disable @next/next/no-img-element */
+import md5 from 'md5';
+import { useState } from 'react';
+import { TransformComponent, TransformWrapper } from 'react-zoom-pan-pinch';
+import grid from './grid.json';
+
+interface ScrollPosition {
+	x: number;
+	y: number;
+}
+
+interface GridProps {
+	grid: any;
+	level?: number;
+	id?: string;
+}
+
+function simpleHashRGBA(input: string, alpha: number) {
+	// hash input to a hex string
+	const hash = md5(input);
+	// convert hash to a bytes
+	const bytes = new Uint8Array(hash.match(/.{2}/g)!.map(c => parseInt(c, 16)));
+	// convert bytes uint8array to a hex string
+	const hex = [...bytes].map(b => b.toString(16).padStart(2, '0')).join('');
+	// Modulus 0xFFFFFF to keep the number in the range [0, 0xFFFFFF] (use BigInt)
+	const number = BigInt(`0x${hex}`) % BigInt(0xFFFFFF);
+	// convert number to a hex string
+	const color = number.toString(16).padStart(6, '0');
+	// convert hex string to an array of 3 numbers
+	const [r, g, b] = color.match(/.{2}/g)!.map(c => parseInt(c, 16));
+	return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+}
+
+function RecursiveGrid({ grid, id = '', level = 0 }: GridProps) {
+	const [hoverElement, setHoverElement] = useState<number | null>(null);
+
+	return (
+		<div style={{
+			display: 'grid',
+			gridTemplateColumns: 'repeat(2, 1fr)',
+			gridTemplateRows: 'repeat(2, 1fr)',
+			width: '100%',
+			height: '100%',
+			gridGap: '0',
+		}}>
+			{typeof grid["1"] !== 'undefined' ?
+				<RecursiveGrid grid={grid["1"]} id={id + '1'} level={level + 1} /> :
+				<div
+					style={{
+						boxSizing: 'border-box',
+						width: '100%',
+						height: '100%',
+						backgroundColor: simpleHashRGBA(id + '1', 0.5),
+						border: hoverElement === 1 ? '1px solid red' : 'none',
+					}}
+					onMouseEnter={() => setHoverElement(1)}
+					onMouseLeave={() => setHoverElement(null)}
+				/>
+			}
+			{typeof grid["2"] !== 'undefined' ?
+				<RecursiveGrid grid={grid["2"]} id={id + '2'} level={level + 1} /> :
+				<div
+					style={{
+						boxSizing: 'border-box',
+						width: '100%',
+						height: '100%',
+						backgroundColor: simpleHashRGBA(id + '2', 0.5),
+						border: hoverElement === 2 ? '1px solid red' : 'none',
+					}}
+					onMouseEnter={() => setHoverElement(2)}
+					onMouseLeave={() => setHoverElement(null)}
+				/>
+			}
+			{typeof grid["3"] !== 'undefined' ?
+				<RecursiveGrid grid={grid["3"]} id={id + '3'} level={level + 1} /> :
+				<div
+					style={{
+						boxSizing: 'border-box',
+						width: '100%',
+						height: '100%',
+						backgroundColor: simpleHashRGBA(id + '3', 0.5),
+						border: hoverElement === 3 ? '1px solid red' : 'none',
+					}}
+					onMouseEnter={() => setHoverElement(3)}
+					onMouseLeave={() => setHoverElement(null)}
+				/>
+			}
+			{typeof grid["4"] !== 'undefined' ?
+				<RecursiveGrid grid={grid["4"]} id={id + '4'} level={level + 1} /> :
+				<div
+					style={{
+						boxSizing: 'border-box',
+						width: '100%',
+						height: '100%',
+						backgroundColor: simpleHashRGBA(id + '4', 0.5),
+						border: hoverElement === 4 ? '1px solid red' : 'none',
+					}}
+					onMouseEnter={() => setHoverElement(4)}
+					onMouseLeave={() => setHoverElement(null)}
+				/>
+			}
+		</div>
+	);
+}
 
 export default function Home() {
-  return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      {/*//display an array of n images in a grid*/}
-        <div className="grid grid-cols-12 gap-0">
-            {[...Array(10000)].map((_, i) => (
-                <Image
-                    key={i}
-                    src={`https://picsum.photos/200/300?random=${i}`}
-                    width={180}
-                    height={30}
-                    loading="lazy"
-                    alt={''}/>
+	return (
+		<TransformWrapper>
+			<TransformComponent>
+				<div
+					style={{
+						width: '80rem',
+						height: '80rem',
+						top: '0px',
+						left: '0px',
+						backgroundImage: `url('https://fastly.picsum.photos/id/979/500/500.jpg?hmac=APiz6C4YsDCixjtANGUI8prcgf-UolUFdkcoFkNSPfI')`,
+						backgroundSize: 'cover',
+					}}
+				>
+					<RecursiveGrid grid={grid} />
+				</div>
+			</TransformComponent>
+		</TransformWrapper>
 
-            ))}
-            {/*<iframe src="iframe" loading="lazy"></iframe>*/}
-        </div>
-    </main>
-  );
-}
+	);
+};
