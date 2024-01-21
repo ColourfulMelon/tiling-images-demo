@@ -2,7 +2,7 @@
 /* eslint-disable @next/next/no-img-element */
 import md5 from 'md5';
 import { useState } from 'react';
-import { TransformComponent, TransformWrapper } from 'react-zoom-pan-pinch';
+import { MapInteractionCSS } from 'react-map-interaction';
 import grid from './grid.json';
 
 interface ScrollPosition {
@@ -51,7 +51,7 @@ function RecursiveGrid({ grid, id = '', level = 0 }: GridProps) {
 						boxSizing: 'border-box',
 						width: '100%',
 						height: '100%',
-						backgroundColor: simpleHashRGBA(id + '1', 0.5),
+						backgroundImage: `url(https://picsum.photos/seed/${Math.floor(Math.random() * 1000)}/${Math.floor(1000 / Math.pow(2, level))}x${Math.floor(1000 / Math.pow(2, level))})`,
 						border: hoverElement === 1 ? '1px solid red' : 'none',
 					}}
 					onMouseEnter={() => setHoverElement(1)}
@@ -65,7 +65,7 @@ function RecursiveGrid({ grid, id = '', level = 0 }: GridProps) {
 						boxSizing: 'border-box',
 						width: '100%',
 						height: '100%',
-						backgroundColor: simpleHashRGBA(id + '2', 0.5),
+						backgroundImage: `url(https://picsum.photos/seed/${Math.floor(Math.random() * 1000)}/${Math.floor(1000 / Math.pow(2, level))}x${Math.floor(1000 / Math.pow(2, level))})`,
 						border: hoverElement === 2 ? '1px solid red' : 'none',
 					}}
 					onMouseEnter={() => setHoverElement(2)}
@@ -79,7 +79,7 @@ function RecursiveGrid({ grid, id = '', level = 0 }: GridProps) {
 						boxSizing: 'border-box',
 						width: '100%',
 						height: '100%',
-						backgroundColor: simpleHashRGBA(id + '3', 0.5),
+						backgroundImage: `url(https://picsum.photos/seed/${Math.floor(Math.random() * 1000)}/${Math.floor(1000 / Math.pow(2, level))}x${Math.floor(1000 / Math.pow(2, level))})`,
 						border: hoverElement === 3 ? '1px solid red' : 'none',
 					}}
 					onMouseEnter={() => setHoverElement(3)}
@@ -93,7 +93,7 @@ function RecursiveGrid({ grid, id = '', level = 0 }: GridProps) {
 						boxSizing: 'border-box',
 						width: '100%',
 						height: '100%',
-						backgroundColor: simpleHashRGBA(id + '4', 0.5),
+						backgroundImage: `url(https://picsum.photos/seed/${Math.floor(Math.random() * 1000)}/${1000 / Math.pow(2, level)}x${1000 / Math.pow(2, level)})`,
 						border: hoverElement === 4 ? '1px solid red' : 'none',
 					}}
 					onMouseEnter={() => setHoverElement(4)}
@@ -106,22 +106,18 @@ function RecursiveGrid({ grid, id = '', level = 0 }: GridProps) {
 
 export default function Home() {
 	return (
-		<TransformWrapper>
-			<TransformComponent>
-				<div
-					style={{
-						width: '80rem',
-						height: '80rem',
-						top: '0px',
-						left: '0px',
-						backgroundImage: `url('https://fastly.picsum.photos/id/979/500/500.jpg?hmac=APiz6C4YsDCixjtANGUI8prcgf-UolUFdkcoFkNSPfI')`,
-						backgroundSize: 'cover',
-					}}
-				>
-					<RecursiveGrid grid={grid} />
-				</div>
-			</TransformComponent>
-		</TransformWrapper>
+		<MapInteractionCSS>
+			<div
+				style={{
+					width: '250rem',
+					height: '250rem',
+					top: '0px',
+					left: '0px',
+				}}
+			>
+				<RecursiveGrid grid={grid} />
+			</div>
+		</MapInteractionCSS>
 
 	);
 };
