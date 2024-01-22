@@ -51,12 +51,12 @@ function RecursiveGrid({ grid, id = '', level = 0 }: GridProps) {
 						boxSizing: 'border-box',
 						width: '100%',
 						height: '100%',
-						backgroundImage: `url(https://picsum.photos/seed/${Math.floor(Math.random() * 1000)}/${Math.floor(1000 / Math.pow(2, level))}x${Math.floor(1000 / Math.pow(2, level))})`,
 						border: hoverElement === 1 ? '1px solid red' : 'none',
 					}}
 					onMouseEnter={() => setHoverElement(1)}
 					onMouseLeave={() => setHoverElement(null)}
-				/>
+				>
+				</div>
 			}
 			{typeof grid["2"] !== 'undefined' ?
 				<RecursiveGrid grid={grid["2"]} id={id + '2'} level={level + 1} /> :
@@ -65,12 +65,12 @@ function RecursiveGrid({ grid, id = '', level = 0 }: GridProps) {
 						boxSizing: 'border-box',
 						width: '100%',
 						height: '100%',
-						backgroundImage: `url(https://picsum.photos/seed/${Math.floor(Math.random() * 1000)}/${Math.floor(1000 / Math.pow(2, level))}x${Math.floor(1000 / Math.pow(2, level))})`,
 						border: hoverElement === 2 ? '1px solid red' : 'none',
 					}}
 					onMouseEnter={() => setHoverElement(2)}
 					onMouseLeave={() => setHoverElement(null)}
-				/>
+				>
+				</div>
 			}
 			{typeof grid["3"] !== 'undefined' ?
 				<RecursiveGrid grid={grid["3"]} id={id + '3'} level={level + 1} /> :
@@ -79,12 +79,12 @@ function RecursiveGrid({ grid, id = '', level = 0 }: GridProps) {
 						boxSizing: 'border-box',
 						width: '100%',
 						height: '100%',
-						backgroundImage: `url(https://picsum.photos/seed/${Math.floor(Math.random() * 1000)}/${Math.floor(1000 / Math.pow(2, level))}x${Math.floor(1000 / Math.pow(2, level))})`,
 						border: hoverElement === 3 ? '1px solid red' : 'none',
 					}}
 					onMouseEnter={() => setHoverElement(3)}
 					onMouseLeave={() => setHoverElement(null)}
-				/>
+				>
+				</div>
 			}
 			{typeof grid["4"] !== 'undefined' ?
 				<RecursiveGrid grid={grid["4"]} id={id + '4'} level={level + 1} /> :
@@ -93,31 +93,65 @@ function RecursiveGrid({ grid, id = '', level = 0 }: GridProps) {
 						boxSizing: 'border-box',
 						width: '100%',
 						height: '100%',
-						backgroundImage: `url(https://picsum.photos/seed/${Math.floor(Math.random() * 1000)}/${1000 / Math.pow(2, level)}x${1000 / Math.pow(2, level)})`,
 						border: hoverElement === 4 ? '1px solid red' : 'none',
 					}}
 					onMouseEnter={() => setHoverElement(4)}
 					onMouseLeave={() => setHoverElement(null)}
-				/>
+				>
+				</div>
 			}
 		</div>
 	);
 }
 
 export default function Home() {
+	const [position, setPosition] = useState({
+		value: {
+			scale: 1,
+			translation: { x: 0, y: 0 }
+		}
+	});
 	return (
-		<MapInteractionCSS>
-			<div
-				style={{
-					width: '250rem',
-					height: '250rem',
-					top: '0px',
-					left: '0px',
-				}}
+		<div>
+			<MapInteractionCSS
+				value={position.value}
+				onChange={(value: any) => setPosition({ value })}
+				showControls
 			>
-				<RecursiveGrid grid={grid} />
-			</div>
-		</MapInteractionCSS>
+				<div
+					style={{
+						width: '250rem',
+						height: '250rem',
+						top: '0px',
+						left: '0px',
+						backgroundImage: `url(https://fastly.picsum.photos/id/233/5000/5000.jpg?hmac=3p2dZ_2HerM6DPD_tt34ZyP92XsRpSRxt_G-RuzkaqE)`,
+					}}
+				>
+					<RecursiveGrid grid={grid} />
+				</div>
+			</MapInteractionCSS>
+			<button
+				style={{
+					position: 'absolute',
+					bottom: '2rem',
+					right: '2rem',
+					backgroundColor: 'orange',
+					padding: '1rem',
+					color: 'white',
+					border: 'none',
+					borderRadius: '0.5rem',
 
+				}}
+				onClick={() => {
+					setPosition({
+						value: {
+							scale: 1,
+							translation: { x: 0, y: 0 }
+						}
+					});
+				}}>
+				Reset
+			</button>
+		</div>
 	);
 };
