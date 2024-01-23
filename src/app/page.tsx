@@ -4,6 +4,10 @@ import md5 from 'md5';
 import { useState } from 'react';
 import { MapInteractionCSS } from 'react-map-interaction';
 import grid from './grid.json';
+import Fab from '@mui/material/Fab';
+import AddIcon from '@mui/icons-material/Add';
+import { Box } from '@mui/material';
+import { Restore } from '@mui/icons-material';
 
 interface ScrollPosition {
 	x: number;
@@ -52,6 +56,7 @@ function RecursiveGrid({ grid, id = '', level = 0 }: GridProps) {
 						width: '100%',
 						height: '100%',
 						border: hoverElement === 1 ? '1px solid red' : 'none',
+						backgroundImage: `url(${})`
 					}}
 					onMouseEnter={() => setHoverElement(1)}
 					onMouseLeave={() => setHoverElement(null)}
@@ -66,6 +71,7 @@ function RecursiveGrid({ grid, id = '', level = 0 }: GridProps) {
 						width: '100%',
 						height: '100%',
 						border: hoverElement === 2 ? '1px solid red' : 'none',
+						backgroundImage: `url(${})`
 					}}
 					onMouseEnter={() => setHoverElement(2)}
 					onMouseLeave={() => setHoverElement(null)}
@@ -80,6 +86,7 @@ function RecursiveGrid({ grid, id = '', level = 0 }: GridProps) {
 						width: '100%',
 						height: '100%',
 						border: hoverElement === 3 ? '1px solid red' : 'none',
+						backgroundImage: `url(${})`
 					}}
 					onMouseEnter={() => setHoverElement(3)}
 					onMouseLeave={() => setHoverElement(null)}
@@ -94,6 +101,7 @@ function RecursiveGrid({ grid, id = '', level = 0 }: GridProps) {
 						width: '100%',
 						height: '100%',
 						border: hoverElement === 4 ? '1px solid red' : 'none',
+						backgroundImage: `url(${})`
 					}}
 					onMouseEnter={() => setHoverElement(4)}
 					onMouseLeave={() => setHoverElement(null)}
@@ -112,46 +120,44 @@ export default function Home() {
 		}
 	});
 	return (
-		<div>
+		<div style={{
+			boxSizing: 'border-box',
+		}}>
 			<MapInteractionCSS
+				maxScale={5}
+				minScale={0.3}
 				value={position.value}
 				onChange={(value: any) => setPosition({ value })}
-				showControls
 			>
-				<div
-					style={{
-						width: '250rem',
-						height: '250rem',
-						top: '0px',
-						left: '0px',
-						backgroundImage: `url(https://fastly.picsum.photos/id/233/5000/5000.jpg?hmac=3p2dZ_2HerM6DPD_tt34ZyP92XsRpSRxt_G-RuzkaqE)`,
-					}}
-				>
+				<div style={{
+					width: '100rem',
+					height: '100rem',
+				}}>
 					<RecursiveGrid grid={grid} />
 				</div>
 			</MapInteractionCSS>
-			<button
-				style={{
-					position: 'absolute',
-					bottom: '2rem',
-					right: '2rem',
-					backgroundColor: 'orange',
-					padding: '1rem',
-					color: 'white',
-					border: 'none',
-					borderRadius: '0.5rem',
-
-				}}
-				onClick={() => {
-					setPosition({
-						value: {
-							scale: 1,
-							translation: { x: 0, y: 0 }
-						}
-					});
-				}}>
-				Reset
-			</button>
+			<Box>
+				<Fab
+					color="primary"
+					aria-label="add"
+					sx={{
+						position: 'absolute',
+						bottom: '1rem',
+						right: '1rem',
+					}}
+					onClick={() => {
+						setPosition({
+							value: {
+								scale: 1,
+								translation: { x: 0, y: 0 }
+							}
+						});
+					}}
+				>
+					<Restore />
+				</Fab>
+			</Box>
 		</div>
+
 	);
 };
