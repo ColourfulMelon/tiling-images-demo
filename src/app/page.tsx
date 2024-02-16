@@ -48,65 +48,101 @@ function RecursiveGrid({ grid, id = '', level = 0 }: GridProps) {
 			height: '100%',
 			gridGap: '0',
 		}}>
-			{typeof grid["1"] !== 'undefined' ?
+			{grid["1"] !== null ?
 				<RecursiveGrid grid={grid["1"]} id={id + '1'} level={level + 1} /> :
-				<div
+				// <div
+				// 	style={{
+				// 		boxSizing: 'border-box',
+				// 		width: '100%',
+				// 		height: '100%',
+				// 		border: hoverElement === 1 ? '1px solid red' : 'none',
+				// 		backgroundColor: simpleHashRGBA(id + '1', 0.5)
+				// 	}}
+				// 	onMouseEnter={() => setHoverElement(1)}
+				// 	onMouseLeave={() => setHoverElement(null)}
+				// >
+				// </div>
+				<img
+					src={`https://picsum.photos/seed/${id + '1'}/${Math.floor(1600 / (id.length + 1))}/${Math.floor(1600 / (id.length + 1))}`}
 					style={{
-						boxSizing: 'border-box',
 						width: '100%',
 						height: '100%',
-						border: hoverElement === 1 ? '1px solid red' : 'none',
-						backgroundImage: `url(${})`
+						objectFit: 'cover',
 					}}
-					onMouseEnter={() => setHoverElement(1)}
-					onMouseLeave={() => setHoverElement(null)}
-				>
-				</div>
+					alt=""
+				/>
 			}
-			{typeof grid["2"] !== 'undefined' ?
+			{grid["2"] !== null ?
 				<RecursiveGrid grid={grid["2"]} id={id + '2'} level={level + 1} /> :
-				<div
+				// <div
+				// 	style={{
+				// 		boxSizing: 'border-box',
+				// 		width: '100%',
+				// 		height: '100%',
+				// 		border: hoverElement === 2 ? '1px solid red' : 'none',
+				// 		backgroundColor: simpleHashRGBA(id + '2', 0.5)
+				// 	}}
+				// 	onMouseEnter={() => setHoverElement(2)}
+				// 	onMouseLeave={() => setHoverElement(null)}
+				// >
+				// </div>
+				<img
+					src={`https://picsum.photos/seed/${id + '2'}/${Math.floor(1600 / (id.length + 1))}/${Math.floor(1600 / (id.length + 1))}`}
 					style={{
-						boxSizing: 'border-box',
 						width: '100%',
 						height: '100%',
-						border: hoverElement === 2 ? '1px solid red' : 'none',
-						backgroundImage: `url(${})`
+						objectFit: 'cover',
 					}}
-					onMouseEnter={() => setHoverElement(2)}
-					onMouseLeave={() => setHoverElement(null)}
-				>
-				</div>
+					alt=""
+				/>
 			}
-			{typeof grid["3"] !== 'undefined' ?
+			{grid["3"] !== null ?
 				<RecursiveGrid grid={grid["3"]} id={id + '3'} level={level + 1} /> :
-				<div
+				// <div
+				// 	style={{
+				// 		boxSizing: 'border-box',
+				// 		width: '100%',
+				// 		height: '100%',
+				// 		border: hoverElement === 3 ? '1px solid red' : 'none',
+				// 		backgroundColor: simpleHashRGBA(id + '3', 0.5)
+				// 	}}
+				// 	onMouseEnter={() => setHoverElement(3)}
+				// 	onMouseLeave={() => setHoverElement(null)}
+				// >
+				// </div>
+				<img
+					src={`https://picsum.photos/seed/${id + '3'}/${Math.floor(1600 / (id.length + 1))}/${Math.floor(1600 / (id.length + 1))}`}
 					style={{
-						boxSizing: 'border-box',
 						width: '100%',
 						height: '100%',
-						border: hoverElement === 3 ? '1px solid red' : 'none',
-						backgroundImage: `url(${})`
+						objectFit: 'cover',
 					}}
-					onMouseEnter={() => setHoverElement(3)}
-					onMouseLeave={() => setHoverElement(null)}
-				>
-				</div>
+					alt=""
+				/>
 			}
-			{typeof grid["4"] !== 'undefined' ?
+			{grid["4"] !== null ?
 				<RecursiveGrid grid={grid["4"]} id={id + '4'} level={level + 1} /> :
-				<div
+				// <div
+				// 	style={{
+				// 		boxSizing: 'border-box',
+				// 		width: '100%',
+				// 		height: '100%',
+				// 		border: hoverElement === 4 ? '1px solid red' : 'none',
+				// 		backgroundColor: simpleHashRGBA(id + '4', 0.5)
+				// 	}}
+				// 	onMouseEnter={() => setHoverElement(4)}
+				// 	onMouseLeave={() => setHoverElement(null)}
+				// >
+				// </div>
+				<img
+					src={`https://picsum.photos/seed/${id + '4'}/${Math.floor(1600 / (id.length + 1))}/${Math.floor(1600 / (id.length + 1))}`}
 					style={{
-						boxSizing: 'border-box',
 						width: '100%',
 						height: '100%',
-						border: hoverElement === 4 ? '1px solid red' : 'none',
-						backgroundImage: `url(${})`
+						objectFit: 'cover',
 					}}
-					onMouseEnter={() => setHoverElement(4)}
-					onMouseLeave={() => setHoverElement(null)}
-				>
-				</div>
+					alt=""
+				/>
 			}
 		</div>
 	);
